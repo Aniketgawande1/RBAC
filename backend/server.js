@@ -1,15 +1,11 @@
 require("dotenv").config();
 const express = require("express");
- // Correct way to load dotenv
-
-// // Debugging: Check if environment variables are loaded
-// console.log("MONGODB_URL:", process.env.MONGODB_URL);
-
+const userRoutes = require("./routes/userRoutes");
+const authRoutes = require("./routes/authRoutes");
 const app = express();
 const db = require("./config/db");
 
 // Import routes
-const authRoutes = require("./routes/authRoutes");
 
 // Connect to database
 db();
@@ -19,6 +15,7 @@ app.use(express.json());
 
 // Setup routes
 app.use("/api/auth", authRoutes);
+app.use("/api/users",userRoutes);
 
 const PORT = process.env.PORT || 5000;
 
