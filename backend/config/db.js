@@ -12,18 +12,18 @@
 //     }   
 // };
 
-// module.exports = db;
 const mongoose = require('mongoose');
 
 const connectDB = async () => {
     try {
-        const connect = await mongoose.connect(process.env.MONGODB_URL, 
-        );
-        console.log(` MongoDB Database Connected : ${connect.connection.host}, ${connect.connection.name}`); 
+        // Connect to MongoDB
+        const connect = await mongoose.connect(process.env.MONGODB_URL);
+        console.log(`MongoDB Database Connected: ${connect.connection.host}, ${connect.connection.name}`); 
     } catch (error) {
         console.error(`Error: ${error.message}`);
-        process.exit(1);
+        process.exit(1); // Exit the process with failure code
     }
 };
 
 module.exports = connectDB;
+

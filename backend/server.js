@@ -1,37 +1,27 @@
-// const express = require("express");
-// const dotenv = require("dotenv").config();
-// // Make sure dotenv is loaded before requiring files that use process.env
-// console.log("MONGO_URL:", process.env.MONGO_URL); // Add this debug line
-// const app = express();
-// const db = require("./config/db");
-// // const cors = require("cors");
-
-// db();
-// app.use(express.json());
-
-// const PORT = process.env.PORT || 5000;
-
-// app.listen(PORT,()=>{  console.log(`server is running  at port ${PORT}`);
-
-// })
-require("dotenv").config();  // Load dotenv at the very top
+require("dotenv").config();
 const express = require("express");
-const connectDB = require("./config/db");
+ // Correct way to load dotenv
+
+// // Debugging: Check if environment variables are loaded
+// console.log("MONGODB_URL:", process.env.MONGODB_URL);
 
 const app = express();
+const db = require("./config/db");
 
-// Debugging: Check if MONGO_URL is loaded
+// Import routes
+const authRoutes = require("./routes/authRoutes");
 
+// Connect to database
+db();
 
-// Connect to DB
-connectDB();
-
+// Middleware
 app.use(express.json());
+
+// Setup routes
+app.use("/api/auth", authRoutes);
 
 const PORT = process.env.PORT || 5000;
 
-app.listen(PORT, () => {
-    console.log(`Server is running at port ${PORT}`);
-   
-
+app.listen(PORT, () => {   
+    console.log(`Server is running at port ${PORT}`); 
 });
